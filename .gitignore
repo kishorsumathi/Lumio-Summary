@@ -1,0 +1,10 @@
+.env
+*.dump
+*.sql
+__pycache__/
+*.py[cod]
+.venv/
+settings.local.json
+*.txt.bak
+format/.DS_Store
+.DS_Store
