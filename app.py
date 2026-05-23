@@ -346,6 +346,9 @@ def main() -> None:
     else:
         st.caption("Dynamic sections 3 & 4 excluded for this note type.")
 
+    with st.expander("System Prompt", expanded=False):
+        st.text(build_system_prompt(session_type))
+
     # ── Step 5: Generate ─────────────────────────────────────────────────────
     if st.button("Generate Summary", type="primary"):
         template_path = templates[session_type]
