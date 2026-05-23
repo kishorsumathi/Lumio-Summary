@@ -1,10 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Environments
 .env
+.envrc
+.venv
+env/
+venv/
+ENV/
+
+# UV / pyenv
+.python-version
+
+# Jupyter
+.ipynb_checkpoints
+
+# mypy / pytype / pyre
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+
+# Ruff
+.ruff_cache/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# macOS
+.DS_Store
+format/.DS_Store
+
+# Lumio project-specific
 *.dump
 *.sql
-__pycache__/
-*.py[cod]
-.venv/
 settings.local.json
-*.txt.bak
-format/.DS_Store
-.DS_Store
