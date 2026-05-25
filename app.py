@@ -342,7 +342,7 @@ def main() -> None:
 
     filtered = sorted(
         filtered,
-        key=lambda p: (p.last_name.lower(), p.first_name.lower()),
+        key=lambda p: (p.first_name.lower(), p.last_name.lower()),
         reverse=(sort_order == "Z → A"),
     )
 
