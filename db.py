@@ -52,6 +52,7 @@ class PatientRow:
     custom_patient_id: str
     date_of_birth: date | None
     gender: str | None
+    last_session_date: date | None = None
 
     @property
     def display_name(self) -> str:
@@ -121,21 +122,23 @@ class SessionRow:
 # ---------------------------------------------------------------------------
 
 def fetch_patients() -> list[PatientRow]:
-    """All clients who have at least one session with a transcript."""
+    """All clients who have at least one session with a transcript, with their latest session date."""
     cur = _cursor()
     cur.execute("""
-        SELECT DISTINCT
+        SELECT
             c.clientid,
             c.first_name,
             c.last_name,
             c.custom_patient_id,
             c.date_of_birth,
-            c.gender
+            c.gender,
+            MAX(s.session_date) AS last_session_date
         FROM clients c
         JOIN sessions s ON c.clientid = s.client_id
         JOIN session_highlights sh ON sh.session_id = s.session_id
         WHERE sh.transcript IS NOT NULL
           AND jsonb_array_length(sh.transcript) > 0
+        GROUP BY c.clientid, c.first_name, c.last_name, c.custom_patient_id, c.date_of_birth, c.gender
         ORDER BY c.last_name, c.first_name
     """)
     rows = cur.fetchall()

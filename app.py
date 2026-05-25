@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from datetime import date, timedelta
 from io import BytesIO
 from pathlib import Path
 from typing import Any
@@ -310,7 +311,42 @@ def main() -> None:
         st.warning("No patients with available transcripts found.")
         st.stop()
 
-    patient_map: dict[str, PatientRow] = {p.display_name: p for p in patients}
+    DATE_FILTER_OPTIONS = {
+        "All": None,
+        "Last 7 days": timedelta(days=7),
+        "Last 30 days": timedelta(days=30),
+        "Last 3 months": timedelta(days=90),
+        "Last 6 months": timedelta(days=180),
+        "Last year": timedelta(days=365),
+    }
+
+    f_col1, f_col2, f_col3 = st.columns([3, 2, 1])
+    with f_col1:
+        name_search = st.text_input("Search patient", placeholder="Type name or ID…", label_visibility="collapsed")
+    with f_col2:
+        date_filter_label = st.selectbox("Last session", options=list(DATE_FILTER_OPTIONS.keys()), label_visibility="collapsed")
+    with f_col3:
+        sort_order = st.selectbox("Sort", options=["A → Z", "Z → A"], label_visibility="collapsed")
+
+    filtered = patients
+
+    if name_search:
+        q = name_search.lower()
+        filtered = [p for p in filtered if q in p.first_name.lower() or q in p.last_name.lower() or q in p.custom_patient_id.lower()]
+
+    cutoff = DATE_FILTER_OPTIONS[date_filter_label]
+    if cutoff is not None:
+        threshold = date.today() - cutoff
+        filtered = [p for p in filtered if p.last_session_date and p.last_session_date >= threshold]
+
+    if sort_order == "Z → A":
+        filtered = sorted(filtered, key=lambda p: (p.last_name.lower(), p.first_name.lower()), reverse=True)
+
+    if not filtered:
+        st.info("No patients match the current filters.")
+        st.stop()
+
+    patient_map: dict[str, PatientRow] = {p.display_name: p for p in filtered}
     selected_patient_name = st.selectbox("Select Patient", options=list(patient_map.keys()))
     patient = patient_map[selected_patient_name]
 
