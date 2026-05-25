@@ -8,7 +8,7 @@
 - **Age / Gender:**
 - **Diagnosis (if applicable):**
 
----
+---   
 
 ## 1. Current Clinical Status
 

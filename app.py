@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from io import BytesIO
 from pathlib import Path
 from typing import Any
@@ -252,10 +253,34 @@ def _static_context(patient: PatientRow, session: SessionRow) -> str:
     )
 
 
+def show_login() -> None:
+    st.title("Lumio Clinical Summary")
+    st.subheader("Sign in")
+
+    with st.form("login_form"):
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        submitted = st.form_submit_button("Login", use_container_width=True)
+
+    if submitted:
+        expected_user = os.environ.get("APP_USERNAME", "")
+        expected_pass = os.environ.get("APP_PASSWORD", "")
+        if username == expected_user and password == expected_pass:
+            st.session_state["authenticated"] = True
+            st.rerun()
+        else:
+            st.error("Invalid username or password.")
+
+
 def main() -> None:
     load_dotenv()
 
     st.set_page_config(page_title="Lumio Clinical Summary", page_icon="📝", layout="wide")
+
+    if not st.session_state.get("authenticated"):
+        show_login()
+        st.stop()
+
     st.title("Lumio Clinical Summary Generator")
 
     templates = discover_session_templates()
