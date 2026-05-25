@@ -340,8 +340,11 @@ def main() -> None:
         threshold = date.today() - cutoff
         filtered = [p for p in filtered if p.last_session_date and p.last_session_date >= threshold]
 
-    if sort_order == "Z → A":
-        filtered = sorted(filtered, key=lambda p: (p.last_name.lower(), p.first_name.lower()), reverse=True)
+    filtered = sorted(
+        filtered,
+        key=lambda p: (p.last_name.lower(), p.first_name.lower()),
+        reverse=(sort_order == "Z → A"),
+    )
 
     if not filtered:
         st.info("No patients match the current filters.")
