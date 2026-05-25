@@ -313,6 +313,7 @@ def main() -> None:
 
     DATE_FILTER_OPTIONS = {
         "All": None,
+        "Today": timedelta(days=0),
         "Last 7 days": timedelta(days=7),
         "Last 30 days": timedelta(days=30),
         "Last 3 months": timedelta(days=90),
