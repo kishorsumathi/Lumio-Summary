@@ -215,6 +215,11 @@
     If a table has no data rows with transcript support → omit the entire table including its header.
     If only some table rows have data → include only those rows.
 
+    SECTION RENUMBERING: When one or more numbered sections are omitted, renumber the remaining sections sequentially starting from 1.
+    Never leave gaps in section numbers.
+    Example: if template sections 1, 2, 3, 4, 5 are present but sections 2 and 3 have no data,
+    output them as section 1, section 2, section 3 — not 1, 4, 5.
+
     This rule overrides template completeness. A shorter, accurate note is always preferred over a padded, inaccurate one.
   </empty_field_rule>
 
