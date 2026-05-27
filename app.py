@@ -120,7 +120,8 @@ COMPLETENESS: Output the full note from the first heading to the last field. Do 
 def build_system_prompt(session_type: str, version: str = "v1.0") -> str:
     system_prompt = read_text_file(PROMPT_VERSIONS[version])
 
-    if should_include_dynamic_prompt(session_type):
+    include_dynamic = version == "v2.0" or should_include_dynamic_prompt(session_type)
+    if include_dynamic:
         dynamic_prompt = read_text_file(DYNAMIC_PROMPT_VERSIONS[version])
         return f"{system_prompt}\n\n{dynamic_prompt}\n\n{OUTPUT_REQUIREMENTS}"
 
@@ -416,7 +417,7 @@ def main() -> None:
         help="Auto-selected based on session type. Override if needed.",
     )
 
-    include_dynamic = should_include_dynamic_prompt(session_type)
+    include_dynamic = prompt_version == "v2.0" or should_include_dynamic_prompt(session_type)
     if include_dynamic:
         st.caption("Dynamic sections 3 & 4 (controlled vocabularies + screening checklists) included.")
     else:
