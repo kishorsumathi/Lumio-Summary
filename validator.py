@@ -40,7 +40,8 @@ class _Correction(BaseModel):
             "empty_field_disclaimer, forbidden_quote, visual_cue_affect, "
             "side_effects_misplacement, target_symptom_tangential, "
             "formulation_leak, section_renumbering, medication_name_missing, "
-            "repetition, risk_level_invented, speech_misuse, other."
+            "repetition, risk_level_invented, speech_misuse, "
+            "response_label_invented, temporal_precision, other."
         )
     )
     location: str = Field(
@@ -173,11 +174,20 @@ R8. MEDICATION NAMING.
    elsewhere in the note if available; otherwise flag.
 
 R9. ONE FACT, ONE PLACE.
-   Each discrete clinical event (e.g. a panic episode, a vaccination episode)
-   has a primary home field. It must not be re-described in full in multiple
-   sections. If the same event appears in detail in two or more fields, KEEP
-   the full account in the primary home and CONDENSE the others to a brief
-   reference (or remove if the reference is not needed).
+   Each discrete clinical event or behavioural finding has a primary home field.
+   It must not be re-described in full in multiple sections. Common duplication
+   patterns to check:
+     - A panic episode described in Subjective Report AND again in Response to
+       Medications or Anxiety Symptoms — keep the full account in Subjective
+       Report; remove or reduce to a one-clause reference elsewhere.
+     - Reassurance-seeking described in a target-symptom field (e.g. Anxiety
+       Symptoms) AND again in MSE Thought Process — Thought Process is the
+       primary home; remove from the symptom field.
+     - A vaccination/stressor event appearing in full in both Side Effects and
+       Stressors — keep in Stressors, remove from Side Effects.
+   If the same event appears in detail in two or more fields, KEEP the full
+   account in its primary home and REMOVE the duplicate (or reduce to a brief
+   cross-reference only if genuinely needed).
 
 R10. RISK LEVEL CLINICIAN-ASSIGNED ONLY.
    Risk Level labels (Low / Moderate / High) may appear ONLY if the clinician
@@ -192,6 +202,23 @@ R11. SPEECH FIELD MISUSE.
    Content) — never Speech. If Speech contains such content, REMOVE it
    from Speech (it almost certainly already appears under Thought Process;
    if not, move it there). If no audible feature remains, omit Speech.
+
+R12. RESPONSE-TO-MEDICATIONS LABEL CLINICIAN-ASSIGNED ONLY.
+   Response category labels (Good response / Partial response / Minimal response /
+   Worsening symptoms / Unable to assess) may appear ONLY if the clinician spoke that
+   exact term in the transcript. If the model prefixed the field with a label the clinician
+   did not state, REMOVE the label and lead with the paraphrase of the patient's report
+   instead.
+
+R13. TEMPORAL PRECISION — NO FUTURE CONTENT IN CURRENT-STATUS FIELDS.
+   Current-status and functioning fields (Academic/Occupational, Social Functioning,
+   Day-to-Day Functioning, target-symptom fields) must contain only what is true NOW
+   (this session / since last contact). Future plans (upcoming travel, planned
+   procedures, scheduled appointments) must appear ONLY in the Plan section or, if
+   they are a stressor the patient is anticipating, in Stressors / Triggers.
+   If a current-status field contains a future plan, MOVE the plan content to the
+   Plan section or Stressors and remove it from the current-status field. If nothing
+   current remains, omit the field.
 
 </rules>
 

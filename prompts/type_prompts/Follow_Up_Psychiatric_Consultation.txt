@@ -29,7 +29,7 @@
     - Current Medications table: one row per drug actually named in the session. ALWAYS name + dose together (core medication_naming). If a cell value (e.g. Dose, Frequency) is genuinely not stated in the transcript, leave that cell BLANK — never write "Not specified", "Unknown", or any placeholder text (core empty_field_rule).
     - Medication Adherence: §FU.adherence. Missed doses / Reason for Non-Adherence: only if discussed.
     - Side Effects Reported: only genuine side effects of medication. A patient's worry that an unrelated event (e.g. a vaccine) affected them is NOT a side effect — that belongs in Stressors/Triggers or is noted as a misattribution the clinician addressed. Do not place it here.
-    - Response to Medications: §FU.response. Paraphrase the patient's sense of benefit; do not quote it.
+    - Response to Medications: Paraphrase the patient's sense of benefit; do not quote it. Use a §FU.response label (Good response / Partial response / Minimal response / Worsening symptoms / Unable to assess) ONLY if the clinician explicitly stated that exact term in the transcript. If the clinician did not assign a label, lead with the paraphrase alone — do NOT infer or assign a response category yourself.
   </section>
 
   <section name="3. Review of Target Symptoms">
