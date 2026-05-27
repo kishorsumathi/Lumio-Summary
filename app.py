@@ -182,6 +182,7 @@ def generate_summary(
         max_tokens=max_output_tokens,
         timeout=240,
         max_retries=2,
+        temperature=0,
     )
     structured_model = model.with_structured_output(ClinicalSummaryOutput)
 
