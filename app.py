@@ -350,8 +350,18 @@ def main() -> None:
     filtered = patients
 
     if name_search:
-        q = name_search.lower()
-        filtered = [p for p in filtered if q in p.first_name.lower() or q in p.last_name.lower() or q in p.custom_patient_id.lower()]
+        # Match every whitespace-separated token against first + last + ID so
+        # "Jane Doe" works (previously the full string had to appear in one field).
+        tokens = [t for t in name_search.strip().lower().split() if t]
+        if tokens:
+            filtered = [
+                p
+                for p in filtered
+                if all(
+                    tok in f"{p.first_name} {p.last_name} {p.custom_patient_id}".lower()
+                    for tok in tokens
+                )
+            ]
 
     cutoff = DATE_FILTER_OPTIONS[date_filter_label]
     if cutoff == "today":
