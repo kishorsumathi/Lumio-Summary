@@ -253,15 +253,20 @@ def render_summary_docx(summary: str) -> bytes:
 
 
 def _static_context(patient: PatientRow, session: SessionRow) -> str:
-    """Pre-fill the known static fields so the LLM doesn't have to guess them."""
-    return (
-        f"Date: {session.session_date.strftime('%d %B %Y')}\n"
-        f"Session Number: {session.session_number}\n"
-        f"Mode of Consultation: {session.modality_label}\n"
-        f"Clinician: {session.clinician}\n"
-        f"Patient Name: {patient.first_name} {patient.last_name}\n"
-        f"Age / Gender: {patient.age_gender}"
-    )
+    """Pre-fill the known static fields so the LLM doesn't have to guess them.
+
+    Only fields with an actual value are included — empty fields are omitted so
+    the model does not echo a blank label into the output.
+    """
+    fields = [
+        ("Date", session.session_date.strftime("%d %B %Y") if session.session_date else ""),
+        ("Session Number", str(session.session_number) if session.session_number else ""),
+        ("Mode of Consultation", session.modality_label),
+        ("Clinician", session.clinician),
+        ("Patient Name", f"{patient.first_name} {patient.last_name}".strip()),
+        ("Age / Gender", patient.age_gender),
+    ]
+    return "\n".join(f"{label}: {value}" for label, value in fields if value)
 
 
 def show_login() -> None:
@@ -322,10 +327,10 @@ def main() -> None:
         st.warning("No patients with available transcripts found.")
         st.stop()
 
-    DATE_FILTER_OPTIONS = {
+    DATE_FILTER_OPTIONS: dict[str, Any] = {
         "All": None,
-        "Today": timedelta(days=0),
-        "Yesterday": timedelta(days=1),
+        "Today": "today",
+        "Yesterday": "yesterday",
         "Last 7 days": timedelta(days=7),
         "Last 30 days": timedelta(days=30),
         "Last 3 months": timedelta(days=90),
@@ -348,7 +353,12 @@ def main() -> None:
         filtered = [p for p in filtered if q in p.first_name.lower() or q in p.last_name.lower() or q in p.custom_patient_id.lower()]
 
     cutoff = DATE_FILTER_OPTIONS[date_filter_label]
-    if cutoff is not None:
+    if cutoff == "today":
+        filtered = [p for p in filtered if p.last_session_date == date.today()]
+    elif cutoff == "yesterday":
+        yesterday = date.today() - timedelta(days=1)
+        filtered = [p for p in filtered if p.last_session_date == yesterday]
+    elif cutoff is not None:
         threshold = date.today() - cutoff
         filtered = [p for p in filtered if p.last_session_date and p.last_session_date >= threshold]
 
