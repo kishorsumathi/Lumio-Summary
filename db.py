@@ -165,7 +165,13 @@ def fetch_sessions(client_id: UUID) -> list[SessionRow]:
         SELECT
             s.session_id,
             s.session_type,
-            s.session_number,
+            COALESCE(
+                s.session_number,
+                ROW_NUMBER() OVER (
+                    PARTITION BY s.client_id
+                    ORDER BY s.session_date ASC, s.session_id ASC
+                )
+            ) AS session_number,
             s.session_date,
             s.modality,
             s.status,

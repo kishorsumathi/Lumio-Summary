@@ -6,7 +6,6 @@
 - **Clinician:**
 - **Patient Name:**
 - **Age / Gender:**
-- **Diagnosis (if applicable):**
 
 ---   
 
