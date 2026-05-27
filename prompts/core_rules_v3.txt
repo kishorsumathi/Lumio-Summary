@@ -32,11 +32,36 @@
     following phrases, STOP and omit the entire field instead:
       - "Not assessed"        - "Not discussed"          - "Not specified"
       - "Not reported"        - "Not applicable"         - "N/A"
-      - "None reported"       - "reported as past presentation, not current status"
+      - "reported as past presentation, not current status"
       - "not a current concern"        - "this is past"
       - "no further detail documented"
     The correct response to "no current evidence" is silence (omit the field), never a label
     with an explanation that there is no content.
+
+    PATTERN RULE — ABSENCE BY ANY WORDING. The list above is illustrative, not exhaustive. The
+    underlying rule is: if a field's content ANNOUNCES that the field has no real content — in
+    ANY wording, positive or negative phrasing, present or past tense — the entire field must be
+    omitted. Examples of variants that all violate this rule:
+      - "no further detail on baseline sleep quality discussed"
+      - "no further detail on X documented"
+      - "...not reported this session"  (note the "this session" hedge)
+      - "not addressed in detail"
+      - "no other concerns raised"
+      - "no specifics provided"
+    Test before writing any field: does my entry STATE A CLINICAL FINDING the clinician gathered
+    (positive or negative)? Or does it tell the reader "documentation is incomplete" / "this
+    domain wasn't really covered"? If the latter — omit the field.
+
+    "DENIES X" — WHEN IT'S ALLOWED. A "No X reported" / "Denies X" entry is acceptable ONLY when
+    it represents the result of a clinical screen the clinician actively conducted (e.g. Suicidal
+    Ideation, Substance Use Review where substance use was reviewed, Side Effects in a medication
+    review where side effects were asked about). It must be a stand-alone clinical finding, with
+    no meta-hedge ("...this session" / "in detail") attached. If the clinician did not actually
+    conduct the screen — OMIT the field.
+
+    MIXED CONTENT — drop the disclaimer, keep the finding. If a field combines a real clinical
+    finding with a meta-comment about gaps, KEEP only the finding and DROP the disclaimer. If
+    after removing the disclaimer no finding remains, OMIT the entire field.
 
     NEVER produce output like:
       - **Diagnosis (if applicable):**
@@ -233,10 +258,12 @@
     Before finalising your output, walk through this checklist. If ANY item fails, fix it before
     returning the note. Treat this as a hard gate — non-compliance is not acceptable.
 
-      1. EMPTY FIELDS: Is every field in the output populated with real content from this session?
-         No field has a label with "Not assessed", "Not discussed", "Not specified", "Not reported",
-         "None reported", "N/A", or any disclaimer that the content is empty/past/non-current?
-         If a field has no current-session content → it must be ABSENT entirely.
+      1. EMPTY FIELDS: For every field in the output, read its content. Does it STATE a clinical
+         finding (positive or negative) the clinician gathered, or does it announce that the field
+         has no real content / documentation is incomplete? Any field whose content is a meta
+         comment ("no further detail discussed", "...not reported this session", "no specifics
+         provided", or any equivalent in any wording) → REMOVE the field entirely. A "Denies X"
+         entry is allowed only if it represents a clinical screen the clinician actually conducted.
 
       2. FORMULATION CONTAINMENT: Does formulation language (clinician's pattern reading, trait
          attribution, "consistent with X", "egosyntonic Y", "personality structure") appear ONLY in

@@ -72,7 +72,8 @@
     Fields you MAY document if positive findings exist:
       Mood (patient-stated) / Speech (rate/tone/volume) / Thought Process / Thought Content / Perception / Insight / Judgment
 
-    - PLACEMENT: reassurance-seeking, repeated/perseverative questioning, circumstantiality, magical thinking → Thought Process. Their CONTENT (anticipatory fears, guilt, rejection-sensitive ideation, presence/absence of suicidal ideation) → Thought Content. They are NOT Speech findings. Speech covers rate/tone/volume/quantity only.
+    - PLACEMENT: reassurance-seeking, repeated/perseverative questioning, circumstantiality, magical thinking → Thought Process. Their CONTENT (anticipatory fears, guilt, rejection-sensitive ideation, presence/absence of suicidal ideation) → Thought Content. They are NOT Speech findings.
+    - SPEECH: include ONLY if the clinician noted a specific audible feature — rate (slowed / pressured), tone, volume (loud / hypophonic), or quantity (poverty / verbose). "Engaged at length", "talked freely", "asked repeated questions on the same themes" are NOT speech findings (the last is reassurance-seeking → Thought Process; repetitive questioning under Speech is a duplication of Thought Process and is FORBIDDEN). If no specific audible speech feature was noted this session, OMIT the Speech field entirely.
     - Insight: include ONLY if the clinician explicitly stated an insight grade OR a discrete insight observation IN THIS SESSION. Forbidden patterns (if you find yourself writing these, OMIT the Insight field):
         · "Clinician noted patient has difficulty trusting clinical guidance..."
         · "Consistent with OCD ego-structure / psychology / structure..."
@@ -90,7 +91,8 @@
   <section name="9. Plan">
     - Medication Changes: §FU.med_change; name + dose for any change.
     - Homework / Action Steps: owner–action–trigger table (core actions).
-    - Risk Level: clinician-assigned only; add the Watch / Escalate forward line (core risk_forward_line).
+    - Risk Level: include the level label (Low / Moderate / High from §FU.risk_level) ONLY if the clinician spoke that exact word IN THE TRANSCRIPT. If the clinician described risk content (e.g. "no current suicidal ideation", "behavioural contract in place") but did NOT explicitly assign a level, do NOT prefix the field with a level. Lead instead with the clinician's actual statement(s). Never infer the level from the absence of ideation.
+    - Watch / Escalate: add the forward line naming the specific change that would raise the risk (core risk_forward_line).
     - Follow-Up / Next Appointment: as stated.
   </section>
 
