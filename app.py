@@ -309,7 +309,7 @@ def main() -> None:
         st.header("Settings")
         selected_model_label = st.selectbox("Model", options=list(MODEL_OPTIONS.keys()))
         model_name = MODEL_OPTIONS[selected_model_label]
-        prompt_version = st.selectbox("Prompt Version", options=list(PROMPT_VERSIONS.keys()))
+        prompt_version = st.selectbox("Prompt Version", options=list(PROMPT_VERSIONS.keys()), index=len(PROMPT_VERSIONS) - 1)
 
     # ── Step 1: Patient selection ─────────────────────────────────────────────
     try:
