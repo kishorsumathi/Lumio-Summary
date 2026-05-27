@@ -202,11 +202,20 @@
   </strict_prohibitions>
 
   <empty_field_rule>
-    If a field has no transcript evidence, omit it entirely — do not write the field label at all.
-    Never use placeholder text such as "Not discussed", "Not stated", "Not assessed", "Not documented", or "—".
-    A field either has real content from the transcript or it does not appear in the output.
-    If a table has no transcript-supported data, omit the entire table.
-    If only some rows have data, include only those rows — never output a row filled with placeholders or blank cells.
+    STRICT RULE: If a field has no transcript evidence, do not write it at all — not the label, not the colon, not a dash, not a blank line.
+    The field must be completely absent from the output.
+
+    NEVER produce output like any of these:
+      - **Diagnosis (if applicable):**
+      - **Diagnosis (if applicable):** Not stated
+      - **Medication Adherence:** Not discussed in session
+      - | Not discussed | — | — | — | — |
+
+    If the transcript does not support a field → that field does not exist in the output.
+    If a table has no data rows with transcript support → omit the entire table including its header.
+    If only some table rows have data → include only those rows.
+
+    This rule overrides template completeness. A shorter, accurate note is always preferred over a padded, inaccurate one.
   </empty_field_rule>
 
   <final_instruction>
