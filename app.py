@@ -18,7 +18,6 @@ from db import PatientRow, SessionRow, assemble_transcript, fetch_patients, fetc
 
 BASE_DIR = Path(__file__).parent
 FORMAT_DIR = BASE_DIR / "format"
-DYNAMIC_PROMPT_PATH = BASE_DIR / "lumio_dynamic_sections_3_4_prompt.txt"
 DYNAMIC_EXCLUDED_SESSION_TYPES = {"Room Change", "Section Change"}
 DEFAULT_MODEL = "claude-sonnet-4-6"
 DEFAULT_MAX_OUTPUT_TOKENS = 64000
@@ -26,6 +25,11 @@ DEFAULT_MAX_OUTPUT_TOKENS = 64000
 PROMPT_VERSIONS: dict[str, Path] = {
     "v1.0": BASE_DIR / "lumio_clinical_summary_system_prompt.txt",
     "v2.0": BASE_DIR / "lumio_system_prompt_v2.txt",
+}
+
+DYNAMIC_PROMPT_VERSIONS: dict[str, Path] = {
+    "v1.0": BASE_DIR / "lumio_dynamic_sections_3_4_prompt_v1.txt",
+    "v2.0": BASE_DIR / "lumio_dynamic_sections_3_4_prompt_v2.txt",
 }
 
 
@@ -117,7 +121,7 @@ def build_system_prompt(session_type: str, version: str = "v1.0") -> str:
     system_prompt = read_text_file(PROMPT_VERSIONS[version])
 
     if should_include_dynamic_prompt(session_type):
-        dynamic_prompt = read_text_file(DYNAMIC_PROMPT_PATH)
+        dynamic_prompt = read_text_file(DYNAMIC_PROMPT_VERSIONS[version])
         return f"{system_prompt}\n\n{dynamic_prompt}\n\n{OUTPUT_REQUIREMENTS}"
 
     return f"{system_prompt}\n\n{OUTPUT_REQUIREMENTS}"
