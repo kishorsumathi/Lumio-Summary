@@ -1,0 +1,45 @@
+<session_module type="Emergency" version="3.0">
+  <purpose>
+    An acute/crisis presentation. Centre of gravity: the precipitant, current risk, and immediate management.
+    Speed and risk clarity matter more than breadth — but every line still needs transcript support.
+  </purpose>
+
+  <clinical_trajectory>
+    Open with the central acute problem and the precipitant driving this presentation.
+  </clinical_trajectory>
+
+  <emphasis>
+    If the transcript refers to an emergency or risk event that occurred before this contact, surface it explicitly
+    (core source_fidelity). Risk is the priority field-set — do not omit Risk Assessment when any risk content exists.
+  </emphasis>
+
+  <section name="Chief Complaints / HOPI / Stressors">
+    Primary symptoms, duration, mode of onset (§onset), course, impact on functioning, precipitating factors — as stated.
+    The precipitating event lives here once (core one_fact_one_place); reference it elsewhere rather than repeating.
+  </section>
+
+  <section name="Risk Assessment">
+    The core of an emergency note. Ideation / Plan / Intent / Means per §risk.ideation; quote any ideation, intent, or means
+    statement VERBATIM (core quotation_discipline). Past risk behaviours, triggers, protective factors as stated.
+    Risk Level and Action Taken are clinician-assigned only; never invent a level. Add a Watch / Escalate forward line.
+  </section>
+
+  <section name="MSE (Only Positive Findings)">
+    Positive findings only; audio-only so no visual cues. Speech = rate/tone/volume; thought patterns → Thought Process,
+    their content → Thought Content. Insight/Judgment only if assessed.
+  </section>
+
+  <section name="Provisional Diagnosis / Intervention Done / Immediate Management Plan">
+    Diagnosis only if the clinician stated one. Interventions and safety measures as brief items.
+    Parental/guardian communication and referrals as owner–action–trigger (core actions).
+  </section>
+
+  <controlled_vocabularies>
+    Reference only — never output. Use verbatim or omit.
+    §onset: Sudden, Gradual
+    §risk.type: Passive suicidal ideation, Active ideation with plan, Self-harm/NSSI, Harm to others, Medical risk, Neglect, None identified
+    §risk.ideation: Ideation (Present/Absent/Passive/Active) · Plan (Present/Absent/Vague/Specific) · Intent (Present/Absent/Ambivalent) · Means (Yes/No/Unknown) · Hopelessness (Present/Absent/Not assessed)
+    §risk.action: Monitoring/Safety plan, Safety contract, Psychiatric referral, Emergency escalation, Family informed (with consent), Means restriction advised, Hospitalisation arranged
+    Abuse disclosures documented verbatim, never softened.
+  </controlled_vocabularies>
+</session_module>

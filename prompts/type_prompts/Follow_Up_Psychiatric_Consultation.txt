@@ -1,0 +1,97 @@
+<session_module type="Follow Up Psychiatric Consultation" version="3.0">
+  <purpose>
+    A medication-and-progress review of a known patient since the last visit. Centre of gravity:
+    what changed since last contact, how medication is working, current target-symptom status, and the plan.
+    This is not an intake — do not re-document full history; capture only what was reviewed this session.
+  </purpose>
+
+  <clinical_trajectory>
+    The opening line uses §FU.status below. Judge DIRECTION first (see core registrar_obligations):
+    partial improvement in panic with residual anxiety is "Improving", not "Fluctuating".
+    Use "Fluctuating" only when there is genuinely no net direction since last contact.
+  </clinical_trajectory>
+
+  <section name="1. Current Clinical Status">
+    - Overall Status Since Last Visit: pick ONE value from §FU.status and add the single driving factor. No quote needed.
+    - Patient's Subjective Report: concise paraphrase of what the patient reports this session. Paraphrase, do not quote routine narrative (travel, how a dose felt). At most one short quote, and only if the words themselves carry weight.
+    - Clinician's Impression: the ONE place for formulation — mechanism + real treatment problem, ~60 words (see core formulation). Do not smear formulation into other fields.
+  </section>
+
+  <section name="2. Medication Review">
+    - Current Medications table: one row per drug actually named in the session. ALWAYS name + dose together (core medication_naming). Omit columns with no data rather than writing "Not specified" repeatedly; if a cell is unknown, leave it blank.
+    - Medication Adherence: §FU.adherence. Missed doses / Reason for Non-Adherence: only if discussed.
+    - Side Effects Reported: only genuine side effects of medication. A patient's worry that an unrelated event (e.g. a vaccine) affected them is NOT a side effect — that belongs in Stressors/Triggers or is noted as a misattribution the clinician addressed. Do not place it here.
+    - Response to Medications: §FU.response. Paraphrase the patient's sense of benefit; do not quote it.
+  </section>
+
+  <section name="3. Review of Target Symptoms">
+    Each field needs evidence ABOUT that symptom in THIS session (core direct_evidence_only + temporal_precision):
+    - Mood: §FU/MSE mood terms only if patient-stated.
+    - Anxiety Symptoms: current anxiety presentation.
+    - Sleep (§FU.sleep), Appetite (§FU.appetite), Energy (§FU.energy): only from a direct statement about that domain now. Taking a night dose during a panic episode is adherence context, NOT sleep evidence. Weakness during a past febrile episode is NOT current baseline energy.
+    - Concentration / Attention: current state only. A patient describing how poor she was "when I first came" is a report of past presentation — do not file it as current concentration.
+    - Motivation / Functioning: current. An urge to drop out that occurred during a now-resolved past episode is a past event (→ Stressors), not current motivation.
+    - Irritability / Anger: only true irritability/anger content. Rejection-sensitivity, "gives more than she receives", difficulty forgiving are INTERPERSONAL themes → put them in §4 Interpersonal Relationships, not here. Omit this field if there is no anger/irritability content.
+  </section>
+
+  <section name="4. Day-to-Day Functioning">
+    Report functioning as actually discussed this session; do not infer from the formulation.
+    - Academic / Occupational: current functioning. Upcoming convocation/travel is a FUTURE plan → it informs the Plan/stressors, not current academic functioning.
+    - Social Functioning, Interpersonal Relationships: house the interpersonal-trait content here (see §3 note). State what was discussed; do not project the clinician's overall trait formulation as the patient's present status.
+    - ADLs / Self-Care, Routine / Structure: only if explicitly discussed. Do not assume appetite/ADL content into Routine.
+  </section>
+
+  <section name="5. Current Stressors / Triggers">
+    Primary home for discrete stressful events (a vaccination-related episode lives HERE, once — see core one_fact_one_place).
+    Recent Stressful Events / Identified Triggers / Family or Relationship Issues / Environmental Stressors — only as discussed.
+  </section>
+
+  <section name="6. Substance Use Review">
+    Change Since Last Session: only if substance use was actually reviewed. Otherwise omit the section.
+  </section>
+
+  <section name="7. Mental Status Examination (Brief)">
+    Audio-only: never document Appearance, Behaviour, eye contact, psychomotor detail (core visual_cues) — omit them.
+    - Mood / Affect / Speech / Thought Process / Thought Content / Perception / Insight / Judgment: include only positive findings actually present in the session.
+    - PLACEMENT: reassurance-seeking, repeated/perseverative questioning, circumstantiality, magical thinking → Thought Process. Their CONTENT (anticipatory fears, guilt, rejection-sensitive ideation, absence of suicidal ideation) → Thought Content. They are NOT Speech findings. Speech covers rate/tone/volume/quantity only.
+    - Insight: an MSE insight finding (§MSE.insight), not a restatement of the clinician's formulation. If insight was not assessed as such, omit it rather than reconstructing a grade from the formulation.
+    - Judgment: include ONLY if explicitly assessed. Do not assume it.
+  </section>
+
+  <section name="8. Interventions / Strategies Discussed">
+    One brief bullet per intervention — what was covered, not a re-teaching of it (core conciseness).
+    e.g. "Psychoeducation — OCD: obsession–compulsion loop and chronic/fluctuating course covered." Not a paragraph explaining the mechanism.
+  </section>
+
+  <section name="9. Plan">
+    - Medication Changes: §FU.med_change; name + dose for any change.
+    - Homework / Action Steps: owner–action–trigger table (core actions).
+    - Risk Level: clinician-assigned only; add the Watch / Escalate forward line (core risk_forward_line).
+    - Follow-Up / Next Appointment: as stated.
+  </section>
+
+  <controlled_vocabularies>
+    Reference only — never output these lists. Where a field maps to a list, use a value verbatim or omit the field.
+    §FU.status (Overall status): Improving, Maintaining, Deteriorating, Fluctuating
+    §FU.adherence: Fully compliant, Partially compliant, Non-compliant
+    §FU.nonadherence_reason: Forgetfulness, Side effects, Financial issues, Fear of dependency, Lack of perceived benefit, Other
+    §FU.response: Good response, Partial response, Minimal response, Worsening symptoms, Unable to assess
+    §FU.sleep: Restful, Disturbed, Insomnia, Hypersomnia, Nightmares / Dreams
+    §FU.appetite: Normal, Reduced, Increased
+    §FU.energy: Adequate, Low, Fatigued, Restless
+    §FU.med_change: No changes, Dose increased, Dose reduced, Medication added, Medication discontinued
+    §FU.risk_level: Low, Moderate, High
+
+    §MSE.mood (patient-stated only): Euthymic, Sad, Depressed/Low, Anxious, Fearful, Irritable, Angry, Dysphoric, Empty/Numb, Hopeless, Anhedonic, Guilty, Worthless, Lonely, Ashamed, Overwhelmed
+    §MSE.affect_quality: Euthymic, Sad, Anxious, Angry, Irritable, Dysphoric, Tearful, Fearful, Constricted
+    §MSE.thought_flow: Goal-directed, Circumstantiality, Tangentiality, Perseveration, Flight of ideas, Thought blocking, Magical thinking, Concrete thinking
+    §MSE.thought_content: No abnormality, Obsessions, Compulsions, Ruminations, Phobias, Suicidal ideation, Self-harm ideation, Passive death-related ideation, Guilt/Worthlessness, Paranoid ideation, Ideas of reference
+    §MSE.perception: No perceptual disturbance, Hallucinations, Illusions, Depersonalisation, Derealisation
+    §MSE.insight (six-grade): Grade 1 complete denial · Grade 2 slight awareness, denies help needed · Grade 3 aware but blames external · Grade 4 aware it is mental, unknown cause · Grade 5 full intellectual insight · Grade 6 full emotional insight
+    §MSE.judgment: Intact, Mildly impaired, Moderately impaired, Severely impaired, Not tested
+
+    §risk.type: Passive suicidal ideation, Active ideation with plan, Self-harm/NSSI, Harm to others, Medical risk, Neglect, None identified
+    §risk.ideation_plan_intent: Ideation (Present/Absent/Passive/Active) · Plan (Present/Absent/Vague/Specific) · Intent (Present/Absent/Ambivalent) · Means (Yes/No/Unknown) · Hopelessness (Present/Absent/Not assessed)
+    Abuse note: any disclosure of abuse — historical or current — is documented verbatim, never softened or reclassified.
+  </controlled_vocabularies>
+</session_module>

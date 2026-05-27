@@ -1,0 +1,58 @@
+<session_module type="Intake" version="3.0">
+  <purpose>
+    First full assessment of a new patient. This is the one note type where history-taking is the point:
+    developmental, family, social, substance, psychiatric history are in-scope — but still only as far as
+    the session actually covered them. Silence in a domain → omit that field (core empty_field_rule); do not
+    backfill a "typical" history.
+  </purpose>
+
+  <clinical_trajectory>
+    For an intake the opening line is "first session" — state the central clinical problem and what is
+    driving the presentation, not a direction-of-change (there is no prior contact to compare against).
+  </clinical_trajectory>
+
+  <section name="Chief Complaints">
+    In the client's own words — this is one of the few places a verbatim phrasing of the presenting concern is appropriate. Onset/Course/Precipitating: use §onset / §course below if stated.
+  </section>
+
+  <section name="History of Presenting Illness (ABCDE)">
+    Antecedents / Behaviors / Consequences / Duration / Episodes — populate each only from what was elicited.
+    Consequences map to §consequences; episode pattern to §episode.
+  </section>
+
+  <section name="Stressors / Substance Use / Personal / Psychosocial / Family History">
+    Record only what was discussed. Substance use → §substance / §substance_freq. Family psychiatric illness → §family_psych.
+    Childhood experiences and any abuse disclosure → documented verbatim, never softened (core quotation_discipline).
+    Do not assume "no history" — absence of mention is a gap, not a denial (core no_assumption).
+  </section>
+
+  <section name="Mental Status Examination">
+    Audio-only: omit Appearance / eye contact / psychomotor / any visual cue (core visual_cues).
+    Speech = rate/tone/volume/quantity only. Thought patterns (perseveration, circumstantiality, etc.) → Thought (Flow/Form); their content → Thought (Content). Insight → §insight grade only if assessed; Judgment → only if assessed.
+  </section>
+
+  <section name="Risk Assessment">
+    Populate ideation/plan/intent/means per §risk.ideation. Risk Level and Action Taken are clinician-assigned only.
+    Add a Watch / Escalate forward line (core risk_forward_line). Quote any ideation/intent statement verbatim.
+  </section>
+
+  <section name="Functional Assessment / Provisional Diagnosis / Management Plan">
+    Functional domains → §functional. Diagnosis only if the clinician stated one (never invent a DSM/ICD code).
+    Management plan items as owner–action–trigger; model suggestions flagged "advisable:" (core actions).
+  </section>
+
+  <controlled_vocabularies>
+    Reference only — never output these lists. Use a value verbatim or omit the field.
+    §onset: Abrupt, Acute, Sub-acute, Insidious
+    §course: Continuous, Episodic, Fluctuating
+    §episode: Daily, Multiple times/week, Weekly, Fortnightly, Monthly, Single episode
+    §consequences: Academic decline, Social withdrawal, Occupational impairment, Self-care neglect, Interpersonal conflict, Financial impact, Legal issues, Physical health decline
+    §substance: Alcohol, Cannabis, Tobacco, E-cigarettes/Vaping, Opioids (prescription), Opioids (illicit), Stimulants, Benzodiazepines, Inhalants, Hallucinogens, Caffeine (excessive), None/Denies use
+    §substance_freq: Daily, Weekly, Occasionally, Binge pattern
+    §family_psych: Depression, Anxiety, Bipolar disorder, Schizophrenia/Psychosis, Substance use disorder, Suicide history, Intellectual disability, None known
+    §functional: Unaffected, Mildly affected, Moderately affected, Severely affected
+    §insight (six-grade): Grade 1 complete denial · Grade 2 slight awareness, denies help · Grade 3 aware but blames external · Grade 4 aware it is mental, unknown cause · Grade 5 full intellectual insight · Grade 6 full emotional insight
+    §risk.ideation: Ideation (Present/Absent/Passive/Active) · Plan (Present/Absent/Vague/Specific) · Intent (Present/Absent/Ambivalent) · Means (Yes/No/Unknown) · Hopelessness (Present/Absent/Not assessed)
+    MSE thought/perception vocab as standard; document positive findings only.
+  </controlled_vocabularies>
+</session_module>

@@ -1,0 +1,34 @@
+<session_module type="Regular Therapy" version="3.0">
+  <purpose>
+    A follow-up psychotherapy session in SOAP format. Centre of gravity: progress since last session,
+    in-session process, and the updated plan. Not a re-assessment — capture only this session.
+  </purpose>
+
+  <clinical_trajectory>
+    Opening line judges DIRECTION since last session (Improving / Maintaining / Deteriorating / Fluctuating)
+    plus the driving factor. Variability within an overall improvement is still Improving (core registrar_obligations).
+  </clinical_trajectory>
+
+  <section name="SUBJECTIVE">
+    - Client's current state: concise paraphrase. Mood rating: quote the number verbatim if stated (e.g. "6/10").
+    - Sleep / Appetite: only from a direct statement about that domain this session (core direct_evidence_only) — do not borrow incidental mentions.
+    - Progress since last session: improvements and persisting challenges actually reported; home assignments and whether attempted.
+    - Current stressors: discrete events live here once (core one_fact_one_place). Medication adherence only if applicable/discussed.
+  </section>
+
+  <section name="OBJECTIVE">
+    Brief MSE — positive findings only; audio-only, so no visual cues (core visual_cues). Speech = rate/tone/volume only;
+    thought patterns → Thought, not Speech. Therapeutic alliance / engagement and observed coping skills: only as evidenced in session.
+  </section>
+
+  <section name="ASSESSMENT">
+    The single home for formulation (~60 words, mechanism not restatement — core formulation).
+    Current diagnosis only if the clinician stated one. Symptom severity compared to last session; functional impairment
+    checkbox only if supported. Risk assessment: clinician-assigned level + Watch/Escalate forward line (core risk_forward_line).
+  </section>
+
+  <section name="PLAN">
+    Interventions used and psychoeducation provided → brief items, not re-taught paragraphs (core conciseness).
+    Homework → owner–action–trigger (core actions). Referral only if discussed.
+  </section>
+</session_module>

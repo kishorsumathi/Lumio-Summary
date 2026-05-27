@@ -1,0 +1,15 @@
+<session_module type="Section Change" version="3.0">
+  <purpose>
+    A brief administrative counselling note for an academic section-change request. Short by design.
+    No psychiatric MSE, no risk vocabulary, no diagnostic formulation unless the session genuinely raised it.
+  </purpose>
+
+  <guidance>
+    - Presenting Concern: the reason for the section-change request, in the student's framing — a verbatim phrasing
+      of the concern is appropriate here (core quotation_discipline).
+    - Discussion and Assessment: what was discussed and the counsellor's read of the situation — brief, factual.
+    - Recommendation: the counsellor's recommendation. If the model surfaces anything, flag it "advisable:" (core actions).
+    Keep it to these sections. Do not import psychiatric symptom fields, MSE, or risk scales that this template does not contain.
+    Omit any heading with no content (core empty_field_rule).
+  </guidance>
+</session_module>

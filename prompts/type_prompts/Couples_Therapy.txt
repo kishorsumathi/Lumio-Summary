@@ -1,0 +1,38 @@
+<session_module type="Couples Therapy" version="3.0">
+  <purpose>
+    A couples follow-up in SOAP format with a per-partner Subjective split. Centre of gravity: each partner's
+    current state, the shared relational picture, and the plan. Capture only this session.
+  </purpose>
+
+  <clinical_trajectory>
+    Opening line judges DIRECTION since last session for the dyad (Improving / Maintaining / Deteriorating / Fluctuating)
+    plus the driving relational factor.
+  </clinical_trajectory>
+
+  <attribution>
+    Keep the two partners distinct. Attribute each statement, concern, and stressor to the partner who raised it —
+    never merge or average them, and never attribute one partner's report to the other. If only one partner spoke to a
+    point, record it under that partner only.
+  </attribution>
+
+  <section name="SUBJECTIVE (per partner + Shared)">
+    For each partner: current emotional state, presenting concerns discussed, functional impact, current stressors — as each reported.
+    Shared: updates since last session, between-session communication, conflict-resolution attempts, homework and response,
+    medication adherence if applicable. Discrete events recorded once (core one_fact_one_place).
+  </section>
+
+  <section name="OBJECTIVE">
+    Brief MSE of both students — positive findings only, audio-only (no visual cues). Interaction pattern and communication
+    style as observed in session. Speech = rate/tone/volume; thought patterns → Thought.
+  </section>
+
+  <section name="ASSESSMENT">
+    Single home for formulation of the relational dynamic (~60 words — core formulation). Distress compared to previous
+    session (Improved / Unchanged / Worsened) only if supported. Risk assessment: clinician-assigned + Watch/Escalate line.
+  </section>
+
+  <section name="PLAN">
+    Interventions and psychoeducation as brief items (core conciseness). Communication/boundary strategies discussed.
+    Homework → owner–action–trigger, attributed to the right partner where relevant (core actions).
+  </section>
+</session_module>

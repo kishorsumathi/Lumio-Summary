@@ -19,9 +19,15 @@ from db import PatientRow, SessionRow, assemble_transcript, fetch_patients, fetc
 BASE_DIR = Path(__file__).parent
 FORMAT_DIR = BASE_DIR / "format"
 PROMPTS_DIR = BASE_DIR / "prompts"
+TYPE_PROMPTS_DIR = PROMPTS_DIR / "type_prompts"
+CORE_RULES_V3 = PROMPTS_DIR / "core_rules_v3.txt"
 DYNAMIC_EXCLUDED_SESSION_TYPES = {"Room Change", "Section Change"}
 DEFAULT_MODEL = "claude-sonnet-4-6"
 DEFAULT_MAX_OUTPUT_TOKENS = 64000
+
+# v1.0/v2.0 are single-file system prompts (+ a shared dynamic-sections file).
+# v3.0 is a composed prompt: one shared core_rules file + one focused module per session type.
+PROMPT_VERSION_LABELS = ["v1.0", "v2.0", "v3.0"]
 
 PROMPT_VERSIONS: dict[str, Path] = {
     "v1.0": PROMPTS_DIR / "lumio_system_prompt_v1.txt",
@@ -32,6 +38,11 @@ DYNAMIC_PROMPT_VERSIONS: dict[str, Path] = {
     "v1.0": PROMPTS_DIR / "lumio_dynamic_sections_3_4_prompt_v1.txt",
     "v2.0": PROMPTS_DIR / "lumio_dynamic_sections_3_4_prompt_v2.txt",
 }
+
+
+def type_prompt_path(session_type: str) -> Path:
+    """Map a session-type display name to its v3.0 module file (spaces → underscores)."""
+    return TYPE_PROMPTS_DIR / f"{session_type.replace(' ', '_')}.txt"
 
 
 class ClinicalSummaryOutput(BaseModel):
@@ -105,11 +116,12 @@ HEADINGS: Use the exact heading levels (#, ##, ###) and heading text from the se
 
 FIELD FORMAT: Each field and its value on its own line. Mirror the list style of the template exactly (e.g. `- **Field:**`). Never merge multiple fields onto one line.
 
-TABLES: Reproduce Markdown tables with a header row, a separator row (|---|---|...|), and data rows. One blank line before and after the table. Never collapse rows onto a single line.
+TABLES: Reproduce Markdown tables as consecutive lines with NO indentation — every line starts at the left margin. The separator row (|---|---|...|) must come immediately after the header row, with NO blank line between header, separator, and data rows. Put exactly one blank line before the header row and one blank line after the last data row. Never collapse rows onto a single line, and never indent table lines (indented tables render as plain text).
 Example:
-  | Medication | Dose | Frequency | Duration | Purpose |
-  |------------|------|-----------|----------|---------|
-  | Sertraline | 50 mg | Morning  | 5 days   | Depression |
+
+| Medication | Dose | Frequency | Duration | Purpose |
+|---|---|---|---|---|
+| Sertraline | 50 mg | Morning | 5 days | Depression |
 
 CHECKBOXES: Mark the transcript-supported option with `☑` or `- [x]`. Leave others as `☐` or `- [ ]`.
 
@@ -119,6 +131,13 @@ COMPLETENESS: Never stop mid-section or mid-table. Output every field and sectio
 
 
 def build_system_prompt(session_type: str, version: str = "v1.0") -> str:
+    if version == "v3.0":
+        core = read_text_file(CORE_RULES_V3)
+        module_path = type_prompt_path(session_type)
+        if module_path.exists():
+            return f"{core}\n\n{read_text_file(module_path)}\n\n{OUTPUT_REQUIREMENTS}"
+        return f"{core}\n\n{OUTPUT_REQUIREMENTS}"
+
     system_prompt = read_text_file(PROMPT_VERSIONS[version])
 
     include_dynamic = version == "v2.0" or should_include_dynamic_prompt(session_type)
@@ -315,7 +334,7 @@ def main() -> None:
         st.header("Settings")
         selected_model_label = st.selectbox("Model", options=list(MODEL_OPTIONS.keys()))
         model_name = MODEL_OPTIONS[selected_model_label]
-        prompt_version = st.selectbox("Prompt Version", options=list(PROMPT_VERSIONS.keys()), index=len(PROMPT_VERSIONS) - 1)
+        prompt_version = st.selectbox("Prompt Version", options=PROMPT_VERSION_LABELS, index=len(PROMPT_VERSION_LABELS) - 1)
 
     # ── Step 1: Patient selection ─────────────────────────────────────────────
     try:
@@ -438,11 +457,17 @@ def main() -> None:
         help="Auto-selected based on session type. Override if needed.",
     )
 
-    include_dynamic = prompt_version == "v2.0" or should_include_dynamic_prompt(session_type)
-    if include_dynamic:
-        st.caption("Dynamic sections 3 & 4 (controlled vocabularies + screening checklists) included.")
+    if prompt_version == "v3.0":
+        if type_prompt_path(session_type).exists():
+            st.caption(f"Core rules + “{session_type}” module (type-specific fields & vocabulary).")
+        else:
+            st.caption("Core rules only (no type-specific module found for this note type).")
     else:
-        st.caption("Dynamic sections 3 & 4 excluded for this note type.")
+        include_dynamic = prompt_version == "v2.0" or should_include_dynamic_prompt(session_type)
+        if include_dynamic:
+            st.caption("Dynamic sections 3 & 4 (controlled vocabularies + screening checklists) included.")
+        else:
+            st.caption("Dynamic sections 3 & 4 excluded for this note type.")
 
     with st.expander("System Prompt", expanded=False):
         st.text(build_system_prompt(session_type, prompt_version))
