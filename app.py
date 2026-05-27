@@ -18,11 +18,15 @@ from db import PatientRow, SessionRow, assemble_transcript, fetch_patients, fetc
 
 BASE_DIR = Path(__file__).parent
 FORMAT_DIR = BASE_DIR / "format"
-SYSTEM_PROMPT_PATH = BASE_DIR / "lumio_clinical_summary_system_prompt.txt"
 DYNAMIC_PROMPT_PATH = BASE_DIR / "lumio_dynamic_sections_3_4_prompt.txt"
 DYNAMIC_EXCLUDED_SESSION_TYPES = {"Room Change", "Section Change"}
 DEFAULT_MODEL = "claude-sonnet-4-6"
 DEFAULT_MAX_OUTPUT_TOKENS = 64000
+
+PROMPT_VERSIONS: dict[str, Path] = {
+    "v1.0": BASE_DIR / "lumio_clinical_summary_system_prompt.txt",
+    "v2.0": BASE_DIR / "lumio_system_prompt_v2.txt",
+}
 
 
 class ClinicalSummaryOutput(BaseModel):
@@ -109,8 +113,8 @@ COMPLETENESS: Output the full note from the first heading to the last field. Do 
 """.strip()
 
 
-def build_system_prompt(session_type: str) -> str:
-    system_prompt = read_text_file(SYSTEM_PROMPT_PATH)
+def build_system_prompt(session_type: str, version: str = "v1.0") -> str:
+    system_prompt = read_text_file(PROMPT_VERSIONS[version])
 
     if should_include_dynamic_prompt(session_type):
         dynamic_prompt = read_text_file(DYNAMIC_PROMPT_PATH)
@@ -146,6 +150,7 @@ def generate_summary(
     transcript: str,
     model_name: str,
     max_output_tokens: int,
+    prompt_version: str = "v1.0",
 ) -> ClinicalSummaryOutput:
     model = ChatAnthropic(
         model=model_name,
@@ -157,7 +162,7 @@ def generate_summary(
 
     response = structured_model.invoke(
         [
-            SystemMessage(content=build_system_prompt(session_type)),
+            SystemMessage(content=build_system_prompt(session_type, prompt_version)),
             HumanMessage(content=build_user_prompt(session_type, template_text, transcript)),
         ]
     )
@@ -299,6 +304,7 @@ def main() -> None:
         st.header("Settings")
         selected_model_label = st.selectbox("Model", options=list(MODEL_OPTIONS.keys()))
         model_name = MODEL_OPTIONS[selected_model_label]
+        prompt_version = st.selectbox("Prompt Version", options=list(PROMPT_VERSIONS.keys()))
 
     # ── Step 1: Patient selection ─────────────────────────────────────────────
     try:
@@ -314,6 +320,7 @@ def main() -> None:
     DATE_FILTER_OPTIONS = {
         "All": None,
         "Today": timedelta(days=0),
+        "Yesterday": timedelta(days=1),
         "Last 7 days": timedelta(days=7),
         "Last 30 days": timedelta(days=30),
         "Last 3 months": timedelta(days=90),
@@ -412,7 +419,7 @@ def main() -> None:
         st.caption("Dynamic sections 3 & 4 excluded for this note type.")
 
     with st.expander("System Prompt", expanded=False):
-        st.text(build_system_prompt(session_type))
+        st.text(build_system_prompt(session_type, prompt_version))
 
     # ── Step 5: Generate ─────────────────────────────────────────────────────
     if st.button("Generate Summary", type="primary"):
@@ -432,6 +439,7 @@ def main() -> None:
                     transcript=full_context,
                     model_name=model_name,
                     max_output_tokens=DEFAULT_MAX_OUTPUT_TOKENS,
+                    prompt_version=prompt_version,
                 )
             except Exception as exc:
                 st.error(f"Generation failed: {exc}")
