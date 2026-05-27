@@ -5,6 +5,14 @@
     This is not an intake — do not re-document full history; capture only what was reviewed this session.
   </purpose>
 
+  <header_fields>
+    The header fields (Date, Session Number, Mode of Consultation, Clinician, Patient Name, Age / Gender)
+    are pre-filled from session metadata injected into the transcript block.
+    Include ONLY the fields that have an actual value in the metadata.
+    If Age / Gender is absent from the metadata, do NOT write "Age / Gender: Not specified" or any
+    placeholder — omit the line entirely (core empty_field_rule).
+  </header_fields>
+
   <clinical_trajectory>
     The opening line uses §FU.status below. Judge DIRECTION first (see core registrar_obligations):
     partial improvement in panic with residual anxiety is "Improving", not "Fluctuating".
@@ -54,8 +62,8 @@
     Audio-only: never document Appearance, Behaviour, eye contact, psychomotor detail (core visual_cues) — omit them.
     - Mood / Affect / Speech / Thought Process / Thought Content / Perception / Insight / Judgment: include only positive findings actually present in the session.
     - PLACEMENT: reassurance-seeking, repeated/perseverative questioning, circumstantiality, magical thinking → Thought Process. Their CONTENT (anticipatory fears, guilt, rejection-sensitive ideation, absence of suicidal ideation) → Thought Content. They are NOT Speech findings. Speech covers rate/tone/volume/quantity only.
-    - Insight: an MSE insight finding (§MSE.insight), not a restatement of the clinician's formulation. If insight was not assessed as such, omit it rather than reconstructing a grade from the formulation.
-    - Judgment: include ONLY if explicitly assessed. Do not assume it.
+    - Insight: include ONLY if the clinician explicitly stated an insight grade or a clear insight observation in this session. Do NOT reconstruct an insight grade from the clinician's formulation, from treatment engagement, or from personality observations. Never write a range ("Grade 4–5") — use only an exact value from §MSE.insight, or omit the field entirely.
+    - Judgment: include ONLY if explicitly assessed in this session. Do not assume it from behaviour.
   </section>
 
   <section name="8. Interventions / Strategies Discussed">

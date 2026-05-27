@@ -37,8 +37,12 @@
     If only some rows have data → include only those rows.
 
     EMPTY SECTION HEADINGS: if a heading has no populated fields beneath it, omit the heading entirely.
-    SECTION RENUMBERING: after omitting empty sections, renumber the remaining numbered sections
-    sequentially from 1 — never leave gaps (e.g. 1, 2, 3 — not 1, 4, 5).
+
+    SECTION RENUMBERING — MANDATORY: after omitting any empty sections, you MUST renumber ALL remaining
+    numbered sections sequentially starting from 1. This is not optional.
+    If the template has sections 1–9 but sections 6 is empty, the output sections must be numbered
+    1, 2, 3, 4, 5, 6, 7, 8 — never 1, 2, 3, 4, 5, 7, 8, 9.
+    Check your final output: if any section number is skipped, you have violated this rule.
 
     A shorter, accurate note is always preferred over a padded one.
   </empty_field_rule>
