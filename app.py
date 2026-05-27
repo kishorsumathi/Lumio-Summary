@@ -14,6 +14,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from pydantic import BaseModel, Field
 
 from db import PatientRow, SessionRow, assemble_transcript, fetch_patients, fetch_sessions
+from validator import validate_summary
 
 
 BASE_DIR = Path(__file__).parent
@@ -336,6 +337,11 @@ def main() -> None:
         selected_model_label = st.selectbox("Model", options=list(MODEL_OPTIONS.keys()))
         model_name = MODEL_OPTIONS[selected_model_label]
         prompt_version = st.selectbox("Prompt Version", options=PROMPT_VERSION_LABELS, index=len(PROMPT_VERSION_LABELS) - 1)
+        validator_enabled = st.toggle(
+            "Validator agent",
+            value=True,
+            help="Run a second-pass LLM (Haiku 4.5) after generation to catch rule violations the main model missed.",
+        )
 
     # ── Step 1: Patient selection ─────────────────────────────────────────────
     try:
@@ -497,11 +503,38 @@ def main() -> None:
                 st.error(f"Generation failed: {exc}")
                 st.stop()
 
+        # ── Step 6: Validator pass ────────────────────────────────────────────
+        final_summary = output.rendered_summary
+        validation = None
+        if validator_enabled:
+            with st.spinner(f"Validating with {selected_model_label}…"):
+                try:
+                    validation = validate_summary(
+                        output.rendered_summary,
+                        session_type=session_type,
+                        model_name=model_name,  # match the generator's capability tier
+                    )
+                    final_summary = validation.revised
+                except Exception as exc:
+                    st.warning(f"Validator failed (using unvalidated note): {exc}")
+
+        # ── Step 7: Display ───────────────────────────────────────────────────
         st.subheader("Generated Summary")
-        st.markdown(output.rendered_summary)
+        if validation is not None:
+            if validation.count == 0:
+                st.success("Validator: no rule violations found.")
+            else:
+                st.info(f"Validator: corrected {validation.count} rule violation(s).")
+                with st.expander(f"View {validation.count} correction(s)", expanded=False):
+                    for issue in validation.issues:
+                        st.markdown(f"- **[{issue.rule}]** {issue.location} — {issue.detail}")
+                with st.expander("View original (pre-validator) summary", expanded=False):
+                    st.markdown(output.rendered_summary)
+
+        st.markdown(final_summary)
         st.download_button(
             "Download as .docx",
-            data=render_summary_docx(output.rendered_summary),
+            data=render_summary_docx(final_summary),
             file_name=f"{patient.last_name}_{session.session_date}_session{session.session_number}.docx",
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         )
