@@ -201,9 +201,17 @@
     <prohibition>Never document visual cues (affect quality, eye contact, psychomotor detail) from an audio-only recording.</prohibition>
   </strict_prohibitions>
 
+  <empty_field_rule>
+    If a field has no transcript evidence, omit it entirely — do not write the field label at all.
+    Never use placeholder text such as "Not discussed", "Not stated", "Not assessed", "Not documented", or "—".
+    A field either has real content from the transcript or it does not appear in the output.
+    If a table has no transcript-supported data, omit the entire table.
+    If only some rows have data, include only those rows — never output a row filled with placeholders or blank cells.
+  </empty_field_rule>
+
   <final_instruction>
     Produce a complete, concise, clinically defensible summary using the supplied template.
     Preserve source fidelity above template completeness.
-    When evidence is insufficient, mark the gap rather than inventing content.
+    When evidence is insufficient, omit the field rather than filling it with a placeholder.
   </final_instruction>
 </system_prompt>

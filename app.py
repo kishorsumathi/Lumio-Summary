@@ -104,10 +104,6 @@ HEADINGS: Use the exact heading levels (#, ##, ###) and heading text from the se
 
 FIELD FORMAT: Each field and its value on its own line. Mirror the list style of the template exactly (e.g. `- **Field:**`). Never merge multiple fields onto one line.
 
-OMIT EMPTY FIELDS: If a field has no transcript evidence, omit it entirely — do not write the field label at all. Never use placeholder text such as "Not discussed", "Not stated", "Not assessed", "Not documented", or "—" to fill a field. A field either has real content from the transcript or it does not appear in the output.
-
-OMIT EMPTY TABLE ROWS: If a table has no transcript-supported data, omit the entire table. If only some rows have data, include only those rows. Never output a row filled with "Not discussed", "—", or blank cells.
-
 TABLES: Reproduce Markdown tables with a header row, a separator row (|---|---|...|), and data rows. One blank line before and after the table. Never collapse rows onto a single line.
 Example:
   | Medication | Dose | Frequency | Duration | Purpose |
@@ -116,7 +112,7 @@ Example:
 
 CHECKBOXES: Mark the transcript-supported option with `☑` or `- [x]`. Leave others as `☐` or `- [ ]`.
 
-COMPLETENESS: Output the full note from the first heading to the last field that has content. Headings with no populated fields beneath them should still appear to preserve structure.
+COMPLETENESS: Output the full note from the first heading to the last field. Do not stop mid-section or mid-table.
 </output_requirements>
 """.strip()
 
