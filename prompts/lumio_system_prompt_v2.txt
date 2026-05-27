@@ -65,7 +65,8 @@
 
     <principle name="closed_vocabularies">
       Closed vocabularies are walls, not menus.
-      Where the template specifies a value set, select from that set verbatim or leave the field blank.
+      Where the template specifies a value set, select from that set verbatim.
+      If the transcript supports no value, omit the field entirely (see empty_field_rule).
       Never invent adjacent terms.
     </principle>
 
@@ -161,7 +162,7 @@
 
     <rule name="no_mid_list_invention">
       Do not create intermediate closed-list values such as "mild-moderate" or "partial-to-full".
-      Use the exact allowed value or mark "Not assessed".
+      Use the exact allowed value, or omit the field entirely if none applies (see empty_field_rule).
     </rule>
 
     <rule name="no_training_data_inheritance">

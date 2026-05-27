@@ -75,8 +75,11 @@ lumio-summary/
 │   ├── Follow_Up_Psychiatric_Consultation.md
 │   ├── Room_Change.md
 │   └── Section_Change.md
-├── lumio_clinical_summary_system_prompt.txt    # Base clinical guardrails system prompt
-├── lumio_dynamic_sections_3_4_prompt.txt       # Controlled vocabularies + screening checklists
+├── prompts/                                      # LLM system + dynamic-section prompt text files
+│   ├── lumio_system_prompt_v1.txt                # v1.0 system prompt (clinical guardrails)
+│   ├── lumio_system_prompt_v2.txt                # v2.0 system prompt
+│   ├── lumio_dynamic_sections_3_4_prompt_v1.txt  # Controlled vocabularies + checklists (v1.0)
+│   └── lumio_dynamic_sections_3_4_prompt_v2.txt  # Controlled vocabularies + checklists (v2.0)
 ├── pyproject.toml
 └── uv.lock
 ```

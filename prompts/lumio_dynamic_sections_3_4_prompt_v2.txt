@@ -5,7 +5,7 @@ Do not fill any field unless supported by the verified transcript.
 
 <section id="3" name="CONTROLLED VOCABULARIES">
 
-These are the closed lists for clinical documentation. Section number and list tags align: every list below is tagged §3.x. Where a template field has a corresponding closed list, select from it verbatim or leave the field blank — never invent adjacent terms. Each list is owned by Clinical (Dr V) and versioned independently.
+These are the closed lists for clinical documentation. Section number and list tags align: every list below is tagged §3.x. Where a template field has a corresponding closed list, select from it verbatim; if the transcript supports no value, omit the field entirely — never invent adjacent terms. Each list is owned by Clinical (Dr V) and versioned independently.
 Presenting illness and course
 §3.1 Onset: Abrupt, Acute, Sub-acute, Insidious
 §3.2 Course: Continuous, Episodic, Fluctuating

@@ -18,18 +18,19 @@ from db import PatientRow, SessionRow, assemble_transcript, fetch_patients, fetc
 
 BASE_DIR = Path(__file__).parent
 FORMAT_DIR = BASE_DIR / "format"
+PROMPTS_DIR = BASE_DIR / "prompts"
 DYNAMIC_EXCLUDED_SESSION_TYPES = {"Room Change", "Section Change"}
 DEFAULT_MODEL = "claude-sonnet-4-6"
 DEFAULT_MAX_OUTPUT_TOKENS = 64000
 
 PROMPT_VERSIONS: dict[str, Path] = {
-    "v1.0": BASE_DIR / "lumio_clinical_summary_system_prompt.txt",
-    "v2.0": BASE_DIR / "lumio_system_prompt_v2.txt",
+    "v1.0": PROMPTS_DIR / "lumio_system_prompt_v1.txt",
+    "v2.0": PROMPTS_DIR / "lumio_system_prompt_v2.txt",
 }
 
 DYNAMIC_PROMPT_VERSIONS: dict[str, Path] = {
-    "v1.0": BASE_DIR / "lumio_dynamic_sections_3_4_prompt_v1.txt",
-    "v2.0": BASE_DIR / "lumio_dynamic_sections_3_4_prompt_v2.txt",
+    "v1.0": PROMPTS_DIR / "lumio_dynamic_sections_3_4_prompt_v1.txt",
+    "v2.0": PROMPTS_DIR / "lumio_dynamic_sections_3_4_prompt_v2.txt",
 }
 
 
@@ -100,7 +101,7 @@ OUTPUT_REQUIREMENTS = """
 <output_requirements>
 These rules govern Markdown structure and formatting only. All clinical content rules are defined in the system prompt above and must be followed as written.
 
-HEADINGS: Use the exact heading levels (#, ##, ###) and heading text from the selected template. Do not add, rename, or remove any heading.
+HEADINGS: Use the exact heading levels (#, ##, ###) and heading text from the selected template. Do not add or rename headings. Do not remove a heading that has content. (If the clinical content rules above require omitting an empty section, follow those rules.)
 
 FIELD FORMAT: Each field and its value on its own line. Mirror the list style of the template exactly (e.g. `- **Field:**`). Never merge multiple fields onto one line.
 
@@ -112,7 +113,7 @@ Example:
 
 CHECKBOXES: Mark the transcript-supported option with `☑` or `- [x]`. Leave others as `☐` or `- [ ]`.
 
-COMPLETENESS: Output the full note from the first heading to the last field. Do not stop mid-section or mid-table.
+COMPLETENESS: Never stop mid-section or mid-table. Output every field and section that has content, through to the end of the note. (The clinical content rules above govern which fields and sections are included.)
 </output_requirements>
 """.strip()
 
