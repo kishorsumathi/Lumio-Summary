@@ -26,27 +26,33 @@
   </section>
 
   <section name="2. Medication Review">
-    - Current Medications table: one row per drug actually named in the session. ALWAYS name + dose together (core medication_naming). Omit columns with no data rather than writing "Not specified" repeatedly; if a cell is unknown, leave it blank.
+    - Current Medications table: one row per drug actually named in the session. ALWAYS name + dose together (core medication_naming). If a cell value (e.g. Dose, Frequency) is genuinely not stated in the transcript, leave that cell BLANK — never write "Not specified", "Unknown", or any placeholder text (core empty_field_rule).
     - Medication Adherence: §FU.adherence. Missed doses / Reason for Non-Adherence: only if discussed.
     - Side Effects Reported: only genuine side effects of medication. A patient's worry that an unrelated event (e.g. a vaccine) affected them is NOT a side effect — that belongs in Stressors/Triggers or is noted as a misattribution the clinician addressed. Do not place it here.
     - Response to Medications: §FU.response. Paraphrase the patient's sense of benefit; do not quote it.
   </section>
 
   <section name="3. Review of Target Symptoms">
-    Each field needs evidence ABOUT that symptom in THIS session (core direct_evidence_only + temporal_precision):
-    - Mood: §FU/MSE mood terms only if patient-stated.
-    - Anxiety Symptoms: current anxiety presentation.
+    EACH target-symptom field needs CURRENT-SESSION evidence ABOUT that symptom. If there is no
+    current evidence for a field, OMIT THE FIELD ENTIRELY — never include it with a disclaimer
+    that the content is past or not current (see core empty_field_rule, OMIT — DO NOT ANNOTATE).
+
+    - Mood: patient-stated mood only (§FU/MSE.mood values). Never document affect (visual).
+    - Anxiety Symptoms: current anxiety presentation only.
     - Sleep (§FU.sleep), Appetite (§FU.appetite), Energy (§FU.energy): only from a direct statement about that domain now. Taking a night dose during a panic episode is adherence context, NOT sleep evidence. Weakness during a past febrile episode is NOT current baseline energy.
-    - Concentration / Attention: current state only. A patient describing how poor she was "when I first came" is a report of past presentation — do not file it as current concentration.
-    - Motivation / Functioning: current. An urge to drop out that occurred during a now-resolved past episode is a past event (→ Stressors), not current motivation.
+    - Concentration / Attention: current state only. A patient describing how poor she was at initial presentation is past content — OMIT THE FIELD; do not include the past content with a "reported as past" disclaimer.
+    - Motivation / Functioning: current state only. An urge to drop out that occurred during a now-resolved past episode is a past event (→ Stressors) — OMIT THIS FIELD; do not include the past content with "not a current concern" disclaimer.
     - Irritability / Anger: only true irritability/anger content. Rejection-sensitivity, "gives more than she receives", difficulty forgiving are INTERPERSONAL themes → put them in §4 Interpersonal Relationships, not here. Omit this field if there is no anger/irritability content.
   </section>
 
   <section name="4. Day-to-Day Functioning">
-    Report functioning as actually discussed this session; do not infer from the formulation.
-    - Academic / Occupational: current functioning. Upcoming convocation/travel is a FUTURE plan → it informs the Plan/stressors, not current academic functioning.
-    - Social Functioning, Interpersonal Relationships: house the interpersonal-trait content here (see §3 note). State what was discussed; do not project the clinician's overall trait formulation as the patient's present status.
-    - ADLs / Self-Care, Routine / Structure: only if explicitly discussed. Do not assume appetite/ADL content into Routine.
+    Report functioning AS ACTUALLY DISCUSSED in this session. Do NOT import the clinician's
+    trait/personality formulation here (core formulation_containment).
+
+    - Academic / Occupational: current functioning only. Upcoming convocation/travel is a FUTURE plan → Plan section, not current academic functioning.
+    - Social Functioning: who is supporting the patient now, with whom, what was actually discussed.
+    - Interpersonal Relationships: ONLY what was discussed in THIS session about relationships — e.g. what the patient herself raised, what the clinician addressed in session. Do NOT begin with "Clinician noted egosyntonic traits..." or list trait observations ("tends to feel she gives more than she receives", "difficulty forgiving", "consistent with OCPD") — that is FORMULATION and belongs only in §1 Clinician's Impression. If the only interpersonal content available is the formulation, OMIT this field.
+    - ADLs / Self-Care, Routine / Structure: only if explicitly discussed.
   </section>
 
   <section name="5. Current Stressors / Triggers">
@@ -59,11 +65,21 @@
   </section>
 
   <section name="7. Mental Status Examination (Brief)">
-    Audio-only: never document Appearance, Behaviour, eye contact, psychomotor detail (core visual_cues) — omit them.
-    - Mood / Affect / Speech / Thought Process / Thought Content / Perception / Insight / Judgment: include only positive findings actually present in the session.
-    - PLACEMENT: reassurance-seeking, repeated/perseverative questioning, circumstantiality, magical thinking → Thought Process. Their CONTENT (anticipatory fears, guilt, rejection-sensitive ideation, absence of suicidal ideation) → Thought Content. They are NOT Speech findings. Speech covers rate/tone/volume/quantity only.
-    - Insight: include ONLY if the clinician explicitly stated an insight grade or a clear insight observation in this session. Do NOT reconstruct an insight grade from the clinician's formulation, from treatment engagement, or from personality observations. Never write a range ("Grade 4–5") — use only an exact value from §MSE.insight, or omit the field entirely.
-    - Judgment: include ONLY if explicitly assessed in this session. Do not assume it from behaviour.
+    Audio-only — OMIT all visual MSE fields entirely (core visual_cues):
+    Appearance, Behaviour, Eye contact, Psychomotor activity, AFFECT (quality/range/intensity/reactivity/congruence).
+    "Grief-like affect" / "anxious affect" / "tearful" as an observation are FORBIDDEN — omit.
+
+    Fields you MAY document if positive findings exist:
+      Mood (patient-stated) / Speech (rate/tone/volume) / Thought Process / Thought Content / Perception / Insight / Judgment
+
+    - PLACEMENT: reassurance-seeking, repeated/perseverative questioning, circumstantiality, magical thinking → Thought Process. Their CONTENT (anticipatory fears, guilt, rejection-sensitive ideation, presence/absence of suicidal ideation) → Thought Content. They are NOT Speech findings. Speech covers rate/tone/volume/quantity only.
+    - Insight: include ONLY if the clinician explicitly stated an insight grade OR a discrete insight observation IN THIS SESSION. Forbidden patterns (if you find yourself writing these, OMIT the Insight field):
+        · "Clinician noted patient has difficulty trusting clinical guidance..."
+        · "Consistent with OCD ego-structure / psychology / structure..."
+        · "Patient demonstrated some awareness of her patterns..."
+        · Any range like "Grade 4–5"
+      These are formulation, not insight assessment. Use an exact §MSE.insight value or OMIT.
+    - Judgment: include ONLY if explicitly assessed in this session. Do not infer it from behaviour or coping choices.
   </section>
 
   <section name="8. Interventions / Strategies Discussed">
@@ -91,7 +107,7 @@
     §FU.risk_level: Low, Moderate, High
 
     §MSE.mood (patient-stated only): Euthymic, Sad, Depressed/Low, Anxious, Fearful, Irritable, Angry, Dysphoric, Empty/Numb, Hopeless, Anhedonic, Guilty, Worthless, Lonely, Ashamed, Overwhelmed
-    §MSE.affect_quality: Euthymic, Sad, Anxious, Angry, Irritable, Dysphoric, Tearful, Fearful, Constricted
+    (Affect vocabulary intentionally omitted — affect is visual, not documentable from audio.)
     §MSE.thought_flow: Goal-directed, Circumstantiality, Tangentiality, Perseveration, Flight of ideas, Thought blocking, Magical thinking, Concrete thinking
     §MSE.thought_content: No abnormality, Obsessions, Compulsions, Ruminations, Phobias, Suicidal ideation, Self-harm ideation, Passive death-related ideation, Guilt/Worthlessness, Paranoid ideation, Ideas of reference
     §MSE.perception: No perceptual disturbance, Hallucinations, Illusions, Depersonalisation, Derealisation

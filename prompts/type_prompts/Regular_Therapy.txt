@@ -17,8 +17,9 @@
   </section>
 
   <section name="OBJECTIVE">
-    Brief MSE — positive findings only; audio-only, so no visual cues (core visual_cues). Speech = rate/tone/volume only;
-    thought patterns → Thought, not Speech. Therapeutic alliance / engagement and observed coping skills: only as evidenced in session.
+    Brief MSE — positive findings only. Audio-only: OMIT all visual MSE elements (core visual_cues) — Appearance, Behaviour, Eye contact, Psychomotor, AFFECT (quality/range/intensity/reactivity/congruence). "Grief-like affect" / "anxious affect" / "tearful" as an observation are forbidden.
+    Speech = rate/tone/volume only; thought patterns → Thought, not Speech.
+    Therapeutic alliance / engagement and observed coping skills: only as evidenced in session — what the patient did or said this session, not the clinician's broader formulation (core formulation_containment).
   </section>
 
   <section name="ASSESSMENT">

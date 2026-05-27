@@ -25,8 +25,9 @@
   </section>
 
   <section name="MSE (Only Positive Findings)">
-    Positive findings only; audio-only so no visual cues. Speech = rate/tone/volume; thought patterns → Thought Process,
-    their content → Thought Content. Insight/Judgment only if assessed.
+    Positive findings only. Audio-only: OMIT all visual MSE elements (core visual_cues) — Appearance, Behaviour, Eye contact, Psychomotor, AFFECT (quality/range/intensity/reactivity/congruence). "Grief-like affect" / "anxious affect" / "tearful" as an observation are forbidden.
+    Speech = rate/tone/volume; thought patterns → Thought Process, their content → Thought Content.
+    Insight: only if the clinician explicitly stated a grade or discrete observation IN THIS SESSION — never reconstructed from formulation (core formulation_containment). Judgment: only if explicitly assessed.
   </section>
 
   <section name="Provisional Diagnosis / Intervention Done / Immediate Management Plan">

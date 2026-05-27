@@ -27,8 +27,10 @@
   </section>
 
   <section name="Mental Status Examination">
-    Audio-only: omit Appearance / eye contact / psychomotor / any visual cue (core visual_cues).
-    Speech = rate/tone/volume/quantity only. Thought patterns (perseveration, circumstantiality, etc.) → Thought (Flow/Form); their content → Thought (Content). Insight → §insight grade only if assessed; Judgment → only if assessed.
+    Audio-only — OMIT all visual MSE fields (core visual_cues): Appearance, Behaviour, Eye contact, Psychomotor activity, and AFFECT (quality/range/intensity/reactivity/congruence). "Grief-like affect" / "anxious affect" / "tearful" as an observation are forbidden.
+    Speech = rate/tone/volume/quantity only. Thought patterns (perseveration, circumstantiality, magical thinking) → Thought (Flow/Form); their content → Thought (Content).
+    Insight: include ONLY if the clinician explicitly stated a grade or a discrete insight observation in this session. Do NOT reconstruct insight from formulation language or treatment engagement (core formulation_containment) — OMIT the field if no explicit assessment.
+    Judgment: include ONLY if explicitly assessed; never inferred from behaviour.
   </section>
 
   <section name="Risk Assessment">

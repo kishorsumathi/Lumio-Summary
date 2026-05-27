@@ -22,8 +22,9 @@
   </section>
 
   <section name="OBJECTIVE">
-    Brief MSE of both students — positive findings only, audio-only (no visual cues). Interaction pattern and communication
-    style as observed in session. Speech = rate/tone/volume; thought patterns → Thought.
+    Brief MSE of both partners — positive findings only. Audio-only: OMIT all visual MSE elements (core visual_cues) — Appearance, Behaviour, Eye contact, Psychomotor, AFFECT (quality/range/intensity/reactivity/congruence). "Grief-like affect" / "anxious affect" / "tearful" as an observation are forbidden.
+    Speech = rate/tone/volume; thought patterns → Thought.
+    Interaction pattern and communication style — what was audible in session (who initiated, who interrupted, escalation patterns, tone shifts), not the clinician's broader interpretation of the dynamic (core formulation_containment).
   </section>
 
   <section name="ASSESSMENT">
