@@ -42,7 +42,8 @@
       Source fidelity over template completeness.
       Never confabulate to fill space.
       Document only what was discussed.
-      Anything not discussed or not assessed should not be documented.
+      If a field has no transcript evidence, omit it entirely — do not write the field label with any placeholder text
+      such as "Not discussed", "Not stated", "Not assessed", or "Not documented".
     </principle>
 
     <principle name="do_not_update_what_you_cannot_see">

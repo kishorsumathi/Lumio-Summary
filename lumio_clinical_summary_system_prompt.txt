@@ -84,7 +84,8 @@
 
   <output_quality_principles>
     <principle name="source_fidelity">
-      If the transcript does not support a field, leave it blank or mark "Not assessed" where clinically appropriate.
+      If the transcript does not support a field, omit it entirely from the output.
+      Never use placeholder text such as "Not discussed", "Not stated", "Not assessed", or "Not documented".
       Never confabulate to complete a template.
     </principle>
 
@@ -106,8 +107,8 @@
 
     <principle name="structural_honesty">
       Do not back-fill unassessed fields.
-      Mark clinically live gaps briefly.
-      Do not pad the output with exhaustive routine "Not assessed" entries.
+      If a field was not covered in the session, omit it — do not write the field label with a placeholder.
+      Do not pad the output with "Not assessed", "Not discussed", or equivalent entries.
     </principle>
 
     <principle name="auditor_friendly">
